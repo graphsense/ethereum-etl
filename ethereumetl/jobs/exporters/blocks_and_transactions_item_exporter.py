@@ -45,6 +45,7 @@ BLOCK_FIELDS_TO_EXPORT = [
 ]
 
 TRANSACTION_FIELDS_TO_EXPORT = [
+    'hash_prefix',
     'hash',
     'nonce',
     'block_hash',

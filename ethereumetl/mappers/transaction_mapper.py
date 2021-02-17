@@ -29,6 +29,7 @@ class EthTransactionMapper(object):
     def json_dict_to_transaction(self, json_dict, **kwargs):
         transaction = EthTransaction()
         transaction.hash = json_dict.get('hash')
+        transaction.hash_prefix = transaction.hash[2:7]
         transaction.nonce = hex_to_dec(json_dict.get('nonce'))
         transaction.block_hash = json_dict.get('blockHash')
         transaction.block_number = hex_to_dec(json_dict.get('blockNumber'))
@@ -45,6 +46,7 @@ class EthTransactionMapper(object):
     def transaction_to_dict(self, transaction):
         return {
             'type': 'transaction',
+            'hash_prefix': transaction.hash_prefix,
             'hash': transaction.hash,
             'nonce': transaction.nonce,
             'block_hash': transaction.block_hash,
