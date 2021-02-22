@@ -24,6 +24,7 @@
 from blockchainetl.jobs.exporters.composite_item_exporter import CompositeItemExporter
 
 BLOCK_FIELDS_TO_EXPORT = [
+    'block_group',
     'number',
     'hash',
     'parent_hash',

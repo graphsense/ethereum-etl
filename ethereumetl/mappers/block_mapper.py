@@ -26,6 +26,9 @@ from ethereumetl.mappers.transaction_mapper import EthTransactionMapper
 from ethereumetl.utils import hex_to_dec, to_normalized_address
 
 
+BUCKET_SIZE = 1e5
+
+
 class EthBlockMapper(object):
     def __init__(self, transaction_mapper=None):
         if transaction_mapper is None:
@@ -36,6 +39,7 @@ class EthBlockMapper(object):
     def json_dict_to_block(self, json_dict):
         block = EthBlock()
         block.number = hex_to_dec(json_dict.get('number'))
+        block.block_group = block.number // BUCKET_SIZE
         block.hash = json_dict.get('hash')
         block.parent_hash = json_dict.get('parentHash')
         block.nonce = json_dict.get('nonce')
@@ -67,6 +71,7 @@ class EthBlockMapper(object):
     def block_to_dict(self, block):
         return {
             'type': 'block',
+            'block_group': block.block_group,
             'number': block.number,
             'hash': block.hash,
             'parent_hash': block.parent_hash,
