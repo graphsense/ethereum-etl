@@ -23,7 +23,7 @@
 
 from ethereumetl.domain.receipt_log import EthReceiptLog
 from ethereumetl.utils import hex_to_dec
-
+from hexbytes import HexBytes
 
 class EthReceiptLogMapper(object):
 
@@ -42,28 +42,34 @@ class EthReceiptLogMapper(object):
         return receipt_log
 
     def web3_dict_to_receipt_log(self, dict):
-
+        
         receipt_log = EthReceiptLog()
 
         receipt_log.log_index = dict.get('logIndex')
 
         transaction_hash = dict.get('transactionHash')
         if transaction_hash is not None:
-            transaction_hash = transaction_hash.hex()
+            if isinstance(transaction_hash, HexBytes):
+                transaction_hash = transaction_hash.hex()
         receipt_log.transaction_hash = transaction_hash
 
         block_hash = dict.get('blockHash')
         if block_hash is not None:
-            block_hash = block_hash.hex()
+            if isinstance(block_hash, HexBytes):
+                block_hash = block_hash.hex()
         receipt_log.block_hash = block_hash
 
         receipt_log.block_number = dict.get('blockNumber')
         receipt_log.address = dict.get('address')
         receipt_log.data = dict.get('data')
+        if isinstance(receipt_log.data, HexBytes):
+            receipt_log.data = receipt_log.data.hex()
 
         if 'topics' in dict:
             receipt_log.topics = [topic.hex() for topic in dict['topics']]
 
+        print("XXXXXX", receipt_log)
+ 
         return receipt_log
 
     def receipt_log_to_dict(self, receipt_log):

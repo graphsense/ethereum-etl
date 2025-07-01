@@ -24,14 +24,17 @@
 from ethereumetl.domain.trace import EthTrace
 from ethereumetl.mainnet_daofork_state_changes import DAOFORK_BLOCK_NUMBER
 from ethereumetl.utils import hex_to_dec, to_normalized_address
-
+from hexbytes import HexBytes
 
 class EthTraceMapper(object):
     def json_dict_to_trace(self, json_dict):
         trace = EthTrace()
+        print("gottrace", json_dict)
 
         trace.block_number = json_dict.get('blockNumber')
         trace.transaction_hash = json_dict.get('transactionHash')
+        if isinstance(trace.transaction_hash, HexBytes):
+            trace.transaction_hash = trace.transaction_hash.hex()
         trace.transaction_index = json_dict.get('transactionPosition')
         trace.subtraces = json_dict.get('subtraces')
         trace.trace_address = json_dict.get('traceAddress', [])
@@ -63,11 +66,19 @@ class EthTraceMapper(object):
             trace.call_type = action.get('callType')
             trace.to_address = to_normalized_address(action.get('to'))
             trace.input = action.get('input')
+            if isinstance(trace.input, HexBytes):
+                trace.input = trace.input.hex()
             trace.output = result.get('output')
+            if isinstance(trace.output, HexBytes):
+                trace.output = trace.output.hex()
         elif trace_type == 'create':
-            trace.to_address = result.get('address')
+            trace.to_address = to_normalized_address(result.get('address'))
             trace.input = action.get('init')
+            if isinstance(trace.input, HexBytes):
+                trace.input = trace.input.hex()
             trace.output = result.get('code')
+            if isinstance(trace.output, HexBytes):
+                trace.output = trace.output.hex()
         elif trace_type == 'suicide':
             trace.from_address = to_normalized_address(action.get('address'))
             trace.to_address = to_normalized_address(action.get('refundAddress'))

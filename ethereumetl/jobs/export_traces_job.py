@@ -30,7 +30,7 @@ from ethereumetl.service.eth_special_trace_service import EthSpecialTraceService
 from ethereumetl.service.trace_id_calculator import calculate_trace_ids
 from ethereumetl.service.trace_status_calculator import calculate_trace_statuses
 from ethereumetl.utils import validate_range
-
+from hexbytes import HexBytes
 
 class ExportTracesJob(BaseJob):
     def __init__(
@@ -87,18 +87,43 @@ class ExportTracesJob(BaseJob):
 
         # TODO: Change to traceFilter when this issue is fixed
         # https://github.com/paritytech/parity-ethereum/issues/9822
-        json_traces = self.web3.parity.traceBlock(block_number)
+        json_traces = self.web3.tracing.trace_block(block_number)
+
+        from copy import deepcopy
+        # the fields gas, value, gasUsed have to be converted to hex if they exist
+        json_traces_new = []
+        for trace in json_traces:
+            trace_copy = dict(trace)
+            if 'action' in trace:
+                action_copy = dict(trace['action'])
+                if 'gas' in trace['action']:
+                    action_copy['gas'] = hex(trace['action']['gas'])
+                if 'value' in trace['action']:
+                    action_copy['value'] = hex(trace['action']['value'])
+                trace_copy['action'] = action_copy
+
+            if 'result' in trace:
+                if trace['result'] is not None:
+                    result_copy = dict(trace['result'])
+                    if 'gasUsed' in trace['result']:
+                        result_copy['gasUsed'] = hex(trace['result']['gasUsed'])
+                    if "code" in trace['result']:
+                        result_copy['code'] = trace['result']['code'].hex()
+                    trace_copy['result'] = result_copy
+                
+
+            json_traces_new.append(trace_copy)
 
         if json_traces is None:
             raise ValueError('Response from the node is None. Is the node fully synced? Is the node started with tracing enabled? Is trace_block API enabled?')
 
-        traces = [self.trace_mapper.json_dict_to_trace(json_trace) for json_trace in json_traces]
+        traces = [self.trace_mapper.json_dict_to_trace(json_trace) for json_trace in json_traces_new]
         all_traces.extend(traces)
 
         calculate_trace_statuses(all_traces)
         calculate_trace_ids(all_traces)
         calculate_trace_indexes(all_traces)
-
+        
         for trace in all_traces:
             self.item_exporter.export_item(self.trace_mapper.trace_to_dict(trace))
 

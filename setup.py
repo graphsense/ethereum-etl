@@ -26,14 +26,16 @@ setup(
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
-        'Programming Language :: Python :: 3.9'
+        'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
+        'Programming Language :: Python :: 3.11'
     ],
     keywords='ethereum',
     python_requires='>=3.7.2,<4',
     install_requires=[
-        'web3>=5.29,<6',
-        'eth-utils==1.10',
-        'eth-abi>=2.2.0,<3.0.0',
+        'web3>=6, <7',
+        'eth-utils>=1.10',
+        'eth-abi>=3.0.0',
         # TODO: This has to be removed when "ModuleNotFoundError: No module named 'eth_utils.toolz'" is fixed at eth-abi
         'python-dateutil>=2.8.0,<3',
         'click>=8.0.4,<9',
@@ -45,8 +47,8 @@ setup(
     extras_require={
         'streaming': [
             'timeout-decorator==0.4.1',
-            'google-cloud-pubsub==2.13.0',
-            'google-cloud-storage==1.33.0',
+            'google-cloud-pubsub>=2.13.0',
+            'google-cloud-storage>=1.33.0',
             'kafka-python==2.0.2',
             'sqlalchemy==1.4',
             'pg8000==1.16.6',
@@ -54,14 +56,14 @@ setup(
             # that's why  we lock the version here
             'libcst==0.3.21',
             # Later versions break the build in Travis CI for Python 3.7.2
-            'grpcio==1.46.3'
+            'grpcio>=1.49.0'
         ],
         'streaming-kinesis': [
             'boto3==1.24.11',
             'botocore==1.27.11',
         ],
         'dev': [
-            'pytest~=4.3.0'
+            'pytest>=7.0.0'
         ]
     },
     entry_points={
