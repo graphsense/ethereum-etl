@@ -67,8 +67,6 @@ class EthReceiptLogMapper(object):
 
         if 'topics' in dict:
             receipt_log.topics = [topic.hex() for topic in dict['topics']]
-
-        print("XXXXXX", receipt_log)
  
         return receipt_log
 
