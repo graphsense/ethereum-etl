@@ -10,14 +10,14 @@ def read(fname):
 long_description = read('README.md') if os.path.isfile("README.md") else ""
 
 setup(
-    name='ethereum-etl',
-    version='2.4.2',
-    author='Evgeny Medvedev',
-    author_email='evge.medvedev@gmail.com',
+    name='graphsense-ethereum-etl',
+    version='2.4.3',
+    author='Iknaio Cryptoasset Analytics GmbH',
+    author_email='contact@ikna.io',
     description='Tools for exporting Ethereum blockchain data to CSV or JSON',
     long_description=long_description,
     long_description_content_type='text/markdown',
-    url='https://github.com/blockchain-etl/ethereum-etl',
+    url='https://github.com/graphsense/ethereum-etl',
     packages=find_packages(exclude=['schemas', 'tests']),
     classifiers=[
         'Development Status :: 5 - Production/Stable',

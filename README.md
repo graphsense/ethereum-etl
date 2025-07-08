@@ -1,9 +1,13 @@
-# Ethereum ETL
+# Graphsense fork of Ethereum ETL
 
 [![Build Status](https://app.travis-ci.com/blockchain-etl/ethereum-etl.svg?branch=develop)](https://travis-ci.com/github/blockchain-etl/ethereum-etl)
 [![License](https://img.shields.io/github/license/blockchain-etl/ethereum-etl)](https://github.com/blockchain-etl/ethereum-etl/blob/develop/LICENSE)
 [![Telegram](https://img.shields.io/badge/telegram-join%20chat-blue.svg)](https://t.me/BlockchainETL)
 [![Twitter](https://img.shields.io/twitter/follow/EthereumETL)](https://x.com/EthereumETL)
+
+This fork is a purpose tailored version for the graphsense infrastructure.
+
+Changes allow more recent python versions to be used [upstream ethereum etl] (https://github.com/ethereum-etl/ethereum-etl)
 
 Ethereum ETL lets you convert blockchain data into convenient formats like CSVs and relational databases.
 
@@ -13,10 +17,10 @@ Ethereum ETL lets you convert blockchain data into convenient formats like CSVs 
 
 ## Quickstart
 
-Install Ethereum ETL:
+Install Graphsense Ethereum ETL:
 
 ```bash
-pip3 install ethereum-etl
+pip3 install graphsense-ethereum-etl
 ```
 
 Export blocks and transactions ([Schema](docs/schema.md#blockscsv), [Reference](docs/commands.md#export_blocks_and_transactions)):
