@@ -10,7 +10,7 @@ long_description = read('README.md') if os.path.isfile("README.md") else ""
 
 setup(
     name='graphsense-ethereum-etl',
-    version='2.4.3',
+    version='2.4.4',
     author='Iknaio Cryptoasset Analytics GmbH',
     author_email='contact@ikna.io',
     description='Tools for exporting Ethereum blockchain data to CSV or JSON',
