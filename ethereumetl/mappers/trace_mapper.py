@@ -29,7 +29,6 @@ from hexbytes import HexBytes
 class EthTraceMapper(object):
     def json_dict_to_trace(self, json_dict):
         trace = EthTrace()
-        print("gottrace", json_dict)
 
         trace.block_number = json_dict.get('blockNumber')
         trace.transaction_hash = json_dict.get('transactionHash')
