@@ -10,7 +10,7 @@ long_description = read('README.md') if os.path.isfile("README.md") else ""
 
 setup(
     name='graphsense-ethereum-etl',
-    version='2.4.4',
+    version='2.4.5',
     author='Iknaio Cryptoasset Analytics GmbH',
     author_email='contact@ikna.io',
     description='Tools for exporting Ethereum blockchain data to CSV or JSON',
@@ -33,6 +33,7 @@ setup(
     python_requires='>=3.7.2,<4',
     install_requires=[
         'web3>=6, <7',
+        'eth-typing < 5.0.0',
         'eth-utils>=1.10',
         'eth-abi>=3.0.0',
         # TODO: This has to be removed when "ModuleNotFoundError: No module named 'eth_utils.toolz'" is fixed at eth-abi
