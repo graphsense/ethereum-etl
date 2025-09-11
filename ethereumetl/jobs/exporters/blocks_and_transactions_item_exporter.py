@@ -66,7 +66,10 @@ TRANSACTION_FIELDS_TO_EXPORT = [
     'max_priority_fee_per_gas',
     'transaction_type',
     'max_fee_per_blob_gas',
-    'blob_versioned_hashes'
+    'blob_versioned_hashes',
+    'v',
+    'r',
+    's'
 ]
 
 

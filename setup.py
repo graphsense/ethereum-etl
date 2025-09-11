@@ -10,7 +10,7 @@ long_description = read('README.md') if os.path.isfile("README.md") else ""
 
 setup(
     name='graphsense-ethereum-etl',
-    version='2.4.5',
+    version='2.4.6',
     author='Iknaio Cryptoasset Analytics GmbH',
     author_email='contact@ikna.io',
     description='Tools for exporting Ethereum blockchain data to CSV or JSON',
@@ -39,12 +39,14 @@ setup(
         # TODO: This has to be removed when "ModuleNotFoundError: No module named 'eth_utils.toolz'" is fixed at eth-abi
         'python-dateutil>=2.8.0,<3',
         'click>=8.0.4,<9',
-        'ethereum-dasm==0.1.4',
         'urllib3<2',
         'base58',
         'requests'
     ],
     extras_require={
+        'contract-parsing': [
+            'ethereum-dasm==0.1.4',
+        ],
         'streaming': [
             'timeout-decorator==0.4.1',
             'google-cloud-pubsub>=2.13.0',

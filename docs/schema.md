@@ -51,6 +51,9 @@ max_priority_fee_per_gas | bigint |
 transaction_type | bigint |
 max_fee_per_blob_gas  | bigint |
 blob_versioned_hashes | string |
+v | bigint |
+r | bigint |
+s | bigint |
 
 ---
 
